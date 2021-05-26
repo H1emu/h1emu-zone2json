@@ -14,9 +14,7 @@
         "build": "tsc -p tsconfig.json"
     },
     "dependencies": {
+        "@types/node": "^15.6.1",
         "h1z1-dataschema": "^1.2.0"
-    },
-    "devDependencies": {
-        "@types/node": "^15.6.1"
     }
 }
