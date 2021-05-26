@@ -6,15 +6,13 @@ Read and write .zone files for H1emu
 
 # Installing
 
-`npm install`
+`npm install h1emu-zone2json`
 
 # Usage
 
-`node zonetool.js <mode> <inPath> [<outPath>]`
-
-| Mode    | Description                                 |
-| ------- | ------------------------------------------- |
-| `json`  | Export Zone data to JSON                    |
-| `info`  | Print general information about Zone data   |
-| `write` | Write JSON data to .zone file               |
-| `test`  | Test tool integrity on zone file `<inpath>` |
+```js
+import { readZone, writeZone } from "h1emu-zone2json";
+import fs from "fs";
+const z1_json = readZone(fs.readFileSync("./Z1.zone"), 0);
+fs.writeFileSync("./myzone.zone", JSON.stringify(writeZone(z1_json)));
+```
