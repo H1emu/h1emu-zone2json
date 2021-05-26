@@ -11,7 +11,7 @@
     },
     "scripts": {
         "install": "npm run build",
-        "build": "tsc -p tsconfig"
+        "build": "tsc -p tsconfig.json"
     },
     "dependencies": {
         "h1z1-dataschema": "^1.2.0"
