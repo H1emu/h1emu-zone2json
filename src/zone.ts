@@ -360,7 +360,7 @@ function writeZone(zone:any) {
   }
   zone.offsets.unknowns = offset;
 
-  let result;
+  let result: any;
   // write data
   const {version} = zone;
   switch(version) {
