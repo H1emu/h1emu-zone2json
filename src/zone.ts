@@ -360,9 +360,24 @@ function writeZone(zone:any) {
   }
   zone.offsets.unknowns = offset;
 
+  let result;
   // write data
-  const result = DataSchema.pack(schemaZone3, zone, undefined , undefined);
-
+  const {version} = zone;
+  switch(version) {
+    case 0x00000001://PS2
+      result = DataSchema.pack(schemaZone1, zone, undefined , undefined);
+      break;
+    case 0x00000003://2015 H1Z1
+      result = DataSchema.pack(schemaZone3, zone, undefined , undefined);
+      break;
+    case 0x00000004://2016 H1Z1
+      result = DataSchema.pack(schemaZone4, zone, undefined , undefined);
+      break;
+    default:
+      log(`Unsupported zone version: ${version}\n`);
+      break;
+  }
+  log(`Zone version: ${version}\n`);
   return result.data;
 }
 export { readZone };
