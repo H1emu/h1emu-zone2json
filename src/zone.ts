@@ -162,15 +162,16 @@ const objectSchema = [
   { name: "actorDefinition", type: "nullstring" },
   { name: "renderDistance", type: "float" },
   {
-      name: "instances",
-      type: "array",
-      fields: [
-          { name: "position", type: "floatvector4" },
-          { name: "rotation", type: "floatvector4" },
-          { name: "scale", type: "floatvector4" },
-          { name: "id", type: "uint64" },
-          { name: "unknownByte1", type: "uint8" },
-      ],
+    name: "instances",
+    type: "array",
+    fields: [
+      { name: "position", type: "floatvector4" },
+      { name: "rotation", type: "floatvector4" },
+      { name: "scale", type: "floatvector4" },
+      { name: "id", type: "uint32" },
+      { name: "unknownByte1", type: "uint8" },
+      { name: "unknownFloat1", type: "float" },
+    ],
   },
 ];
 
