@@ -332,31 +332,31 @@ function writeZone(zone:any) {
 
   offset += 4;
   for (i = 0; i < zone.ecos.length; i++) {
-    offset += DataSchema.sizeOf(ecoSchema, zone.ecos[i]);
+    offset += DataSchema.calculateDataLength(ecoSchema, zone.ecos[i]);
   }
   zone.offsets.floras = offset;
 
   offset += 4;
   for (i = 0; i < zone.floras.length; i++) {
-    offset += DataSchema.sizeOf(floraSchema, zone.floras[i]);
+    offset += DataSchema.calculateDataLength(floraSchema, zone.floras[i]);
   }
   zone.offsets.invisibleWalls = offset;
 
   offset += 4;
   for (i = 0; i < zone.invisibleWalls.length; i++) {
-    offset += DataSchema.sizeOf(invisibleWallSchema, zone.invisibleWalls[i]);
+    offset += DataSchema.calculateDataLength(invisibleWallSchema, zone.invisibleWalls[i]);
   }
   zone.offsets.objects = offset;
 
   offset += 4;
   for (i = 0; i < zone.objects.length; i++) {
-    offset += DataSchema.sizeOf(objectSchema, zone.objects[i]);
+    offset += DataSchema.calculateDataLength(objectSchema, zone.objects[i]);
   }
   zone.offsets.lights = offset;
 
   offset += 4;
   for (i = 0; i < zone.lights.length; i++) {
-    offset += DataSchema.sizeOf(lightSchema, zone.lights[i]);
+    offset += DataSchema.calculateDataLength(lightSchema, zone.lights[i]);
   }
   zone.offsets.unknowns = offset;
 
