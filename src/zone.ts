@@ -76,20 +76,20 @@ const ecoSchema2016 = [
 const objectSchema2016 = [
   { name: "actorDefinition", type: "nullstring" },
   { name: "unk_float0", type: "float" },
-  { 
-    name: "instances", 
-    type: "array", 
+  {
+    name: "instances",
+    type: "array",
     fields: [
-      { name: "position", type: "floatvector4" }, // translation
+      { name: "position", type: "floatvector4" },
       { name: "rotation", type: "floatvector4" },
       { name: "scale", type: "floatvector4" },
-      { name: "id", type: "uint64" },// part 1 of byte[29]
-      //{ name: "unk_data0", type: "uint32" },// part 1 of byte[29]
-      { name: "unk_data1", type: "uint64" },// part 2 of byte[29]
-      { name: "unk_data2", type: "uint64" },// part 3 of byte[29]
-      { name: "unk_data3", type: "uint32" },// part 4 of byte[29]
-      { name: "unk_data4", type: "uint8" },// part 4 of byte[29]
-    ] 
+      { name: "id", type: "uint32" },
+      { name: "unknownByte1", type: "uint8" },
+      { name: "unknownFloat1", type: "float" },
+      { name: "unk_data1", type: "uint64" },
+      { name: "unk_data2", type: "uint64" },
+      { name: "unk_data3", type: "uint32" },
+    ]
   }
 ];
 
