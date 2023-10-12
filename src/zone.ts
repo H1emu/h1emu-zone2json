@@ -75,7 +75,7 @@ const ecoSchema2016 = [
 
 const objectSchema2016 = [
   { name: "actorDefinition", type: "nullstring" },
-  { name: "unk_float0", type: "float" },
+  { name: "renderDistance", type: "float" },
   {
     name: "instances",
     type: "array",
