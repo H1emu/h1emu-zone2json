@@ -220,7 +220,7 @@ const decalSchema2016 = [
   { name: "unk_int4", type: "uint32" },
   { name: "unk_int5", type: "uint32" },
   { name: "name", type: "nullstring" },
-  { name: "unk_float0", type: "floatvector4" },
+  { name: "unk_float0", type: "float" },
   { name: "unk_int6", type: "uint32" },
   { name: "unk_int7", type: "uint32" },
   { name: "unk_int8", type: "uint32" },
