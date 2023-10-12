@@ -162,8 +162,8 @@ struct Runtime_Objects(uint32 version)
     uint32 runtime_object_count;
     struct Runtime_Object(uint32 version)
         {
-        string actor_file;
-        float unk_float0;
+        string actorDefinition;
+        float renderDistance;
         struct Instances(uint32 version)
             {
             uint32 instance_count;
@@ -175,7 +175,10 @@ struct Runtime_Objects(uint32 version)
                 Float4 scale;
                 if (version == 4)
                     {
-                    byte unk_data[29];
+                    uint32 id;
+                    byte unknownByte1;
+                    float unknownFloat1;
+                    byte unk_data[20];
                     }
                 else
                     {
@@ -231,6 +234,7 @@ if (header.version == 4) // H1
     }
 
 // Helper Functions
+
 string read_decal_name(Decal &d)
     {
     string s;
