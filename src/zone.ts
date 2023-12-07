@@ -1,5 +1,5 @@
 import DataSchema from "h1z1-dataschema";
-const log = (string:string)=>process.stdout.write(string)
+const log = (string: string) => process.stdout.write(string)
 
 const headerSchema = [
   { name: "signature", type: "uint32" },
@@ -31,9 +31,9 @@ const headerSchema = [
 
 const ecoSchema2016 = [
   { name: "index", type: "uint32" },
-  { 
-    name: "texture", 
-    type: "schema", 
+  {
+    name: "texture",
+    type: "schema",
     fields: [
       { name: "name", type: "nullstring" },
       { name: "colorNxMap", type: "nullstring" },
@@ -295,7 +295,7 @@ const schemaZone4 = [
   { name: "decals", type: "array", fields: decalSchema2016 },
 ]
 
-function readZone(data:Buffer, offset:number) {
+function readZone(data: Buffer, offset: number) {
   offset = offset || 0;
 
   const signature = data.readUInt32LE(offset);
@@ -305,14 +305,17 @@ function readZone(data:Buffer, offset:number) {
 
   const version = data.readUInt32LE(offset + 4);
   let zone: any;
-  switch(version) {
+  switch (version) {
     case 0x00000001://PS2
+      console.log("Zone version 1")
       zone = DataSchema.parse(schemaZone1, data, offset);
       break;
     case 0x00000003://2015 H1Z1
+      console.log("Zone version 3")
       zone = DataSchema.parse(schemaZone3, data, offset);
       break;
     case 0x00000004://2016 H1Z1
+      console.log("Zone version 4")
       zone = DataSchema.parse(schemaZone4, data, offset);
       break;
     default:
@@ -323,7 +326,7 @@ function readZone(data:Buffer, offset:number) {
   return zone.result;
 }
 
-function writeZone(zone:any) {
+function writeZone(zone: any) {
   // calculate new offsets
   let offset = 68,
     i;
@@ -362,16 +365,16 @@ function writeZone(zone:any) {
 
   let result: any;
   // write data
-  const {version} = zone;
-  switch(version) {
+  const { version } = zone;
+  switch (version) {
     case 0x00000001://PS2
-      result = DataSchema.pack(schemaZone1, zone, undefined , undefined);
+      result = DataSchema.pack(schemaZone1, zone, undefined, undefined);
       break;
     case 0x00000003://2015 H1Z1
-      result = DataSchema.pack(schemaZone3, zone, undefined , undefined);
+      result = DataSchema.pack(schemaZone3, zone, undefined, undefined);
       break;
     case 0x00000004://2016 H1Z1
-      result = DataSchema.pack(schemaZone4, zone, undefined , undefined);
+      result = DataSchema.pack(schemaZone4, zone, undefined, undefined);
       break;
     default:
       log(`Unsupported zone version: ${version}\n`);
