@@ -1,5 +1,5 @@
 import DataSchema from "h1z1-dataschema";
-const log = (string: string) => process.stdout.write(string)
+const log = (string: string) => process.stdout.write(string);
 
 const headerSchema = [
   { name: "signature", type: "uint32" },
@@ -80,17 +80,68 @@ const objectSchema2016 = [
     name: "instances",
     type: "array",
     fields: [
-      { name: "position", type: "floatvector4" },
+      { name: "position", type: "floatvector4" }, // translation
       { name: "rotation", type: "floatvector4" },
       { name: "scale", type: "floatvector4" },
       { name: "id", type: "uint32" },
       { name: "unknownByte1", type: "uint8" },
       { name: "unknownFloat1", type: "float" },
-      { name: "unk_data1", type: "uint64" },
-      { name: "unk_data2", type: "uint64" },
-      { name: "unk_data3", type: "uint32" },
-    ]
-  }
+      { name: "unkData1", type: "uint64string" }, // below is unknownData[20]
+      { name: "unkData1", type: "uint64string" }, // below is unknownData[20]
+      { name: "unkData1", type: "uint64string" }, // below is unknownData[20]
+      { name: "unkData1", type: "uint64string" }, // below is unknownData[20]
+      { name: "unkData1", type: "uint64string" }, // below is unknownData[20]
+      { name: "unkData1", type: "uint64string" }, // below is unknownData[20]
+      { name: "unkData1", type: "uint64string" }, // below is unknownData[20]
+      { name: "unkData1", type: "uint64string" }, // below is unknownData[20]
+      { name: "unkData1", type: "uint64string" }, // below is unknownData[20]
+      { name: "unknownByte12", type: "uint8" },
+    ],
+  },
+];
+
+const objectSchema2018 = [
+  { name: "actorDefinition", type: "nullstring" },
+  { name: "renderDistance", type: "float" },
+  {
+    name: "instances",
+    type: "array",
+    fields: [
+      { name: "position", type: "floatvector4" }, // translation
+      { name: "rotation", type: "floatvector4" },
+      { name: "scale", type: "floatvector4" },
+      { name: "id", type: "uint32" },
+      { name: "unknownFloat1", type: "float" }, // unknownData[5]
+      { name: "unknownByte12", type: "uint8" }, // unknownData[5]
+      {
+        name: "uintPairs",
+        type: "array",
+        fields: [
+          { name: "key", type: "uint32" },
+          { name: "value", type: "uint32" },
+        ],
+      },
+      {
+        name: "floatPairs",
+        type: "array",
+        fields: [
+          { name: "key", type: "uint32" },
+          { name: "value", type: "float" },
+        ],
+      },
+      { name: "unkDword1", type: "uint32" },
+      {
+        name: "vectorPairs",
+        type: "array",
+        fields: [
+          { name: "key", type: "uint32" },
+          { name: "value", type: "floatvector4" },
+        ],
+      },
+      { name: "unkData3", type: "uint32" },
+      { name: "unknownData4", type: "uint8" }, // unknownData[5]
+    ],
+  },
 ];
 
 const ecoSchema = [
@@ -198,32 +249,29 @@ const lightSchema = [
 const lightSchema2016 = [
   { name: "name", type: "nullstring" },
   { name: "color", type: "nullstring" },
-  { name: "unk_data0", type: "uint64" },// part 1 of byte[75]
-  { name: "unk_data1", type: "uint64" },// part 2 of byte[75]
-  { name: "unk_data2", type: "uint64" },// part 3 of byte[75]
-  { name: "unk_data3", type: "uint64" },// part 4 of byte[75]
-  { name: "unk_data4", type: "uint64" },// part 5 of byte[75]
-  { name: "unk_data5", type: "uint64" },// part 6 of byte[75]
-  { name: "unk_data6", type: "uint64" },// part 7 of byte[75]
-  { name: "unk_data7", type: "uint64" },// part 8 of byte[75]
-  { name: "unk_data8", type: "uint64" },// part 9 of byte[75]
-  { name: "unk_data9", type: "uint16" },// part 10 of byte[75]
-  { name: "unk_data10", type: "uint8" },// part 11 of byte[75]
+  { name: "unk_data0", type: "uint64" }, // part 1 of byte[75]
+  { name: "unk_data1", type: "uint64" }, // part 2 of byte[75]
+  { name: "unk_data2", type: "uint64" }, // part 3 of byte[75]
+  { name: "unk_data3", type: "uint64" }, // part 4 of byte[75]
+  { name: "unk_data4", type: "uint64" }, // part 5 of byte[75]
+  { name: "unk_data5", type: "uint64" }, // part 6 of byte[75]
+  { name: "unk_data6", type: "uint64" }, // part 7 of byte[75]
+  { name: "unk_data7", type: "uint64" }, // part 8 of byte[75]
+  { name: "unk_data8", type: "uint64" }, // part 9 of byte[75]
+  { name: "unk_data9", type: "uint16" }, // part 10 of byte[75]
+  { name: "unk_data10", type: "uint8" }, // part 11 of byte[75]
 ];
 
 const decalSchema2016 = [
   { name: "unk_int0", type: "uint32" },
-  { name: "position", type: "floatvector4" },// translation
+  { name: "position", type: "floatvector4" }, // translation
   { name: "unk_int1", type: "uint32" },
   { name: "unk_int2", type: "uint32" },
   { name: "unk_int3", type: "uint32" },
   { name: "unk_int4", type: "uint32" },
   { name: "unk_int5", type: "uint32" },
   { name: "name", type: "nullstring" },
-  { name: "unk_float0", type: "float" },
-  { name: "unk_int6", type: "uint32" },
-  { name: "unk_int7", type: "uint32" },
-  { name: "unk_int8", type: "uint32" },
+  { name: "unk_float0", type: "floatvector4" },
 ];
 
 const decalSchema = [
@@ -293,7 +341,18 @@ const schemaZone4 = [
   { name: "lights", type: "array", fields: lightSchema2016 },
   { name: "unk_int0", type: "uint32" },
   { name: "decals", type: "array", fields: decalSchema2016 },
-]
+];
+
+const schemaZone5 = [
+  { name: "header", type: "schema", fields: headerSchema },
+  { name: "ecos", type: "array", fields: ecoSchema2016 },
+  { name: "floras", type: "array", fields: floraSchema },
+  { name: "invis_walls", type: "array", fields: [] },
+  { name: "objects", type: "array", fields: objectSchema2018 },
+  { name: "lights", type: "array", fields: lightSchema2016 },
+  { name: "unk_int0", type: "uint32" },
+  { name: "decals", type: "array", fields: decalSchema2016 },
+];
 
 function readZone(data: Buffer, offset: number) {
   offset = offset || 0;
@@ -306,17 +365,17 @@ function readZone(data: Buffer, offset: number) {
   const version = data.readUInt32LE(offset + 4);
   let zone: any;
   switch (version) {
-    case 0x00000001://PS2
-      console.log("Zone version 1")
+    case 0x00000001: //PS2
       zone = DataSchema.parse(schemaZone1, data, offset);
       break;
-    case 0x00000003://2015 H1Z1
-      console.log("Zone version 3")
+    case 0x00000003: //2015 H1Z1
       zone = DataSchema.parse(schemaZone3, data, offset);
       break;
-    case 0x00000004://2016 H1Z1
-      console.log("Zone version 4")
+    case 0x00000004: //2016 H1Z1
       zone = DataSchema.parse(schemaZone4, data, offset);
+      break;
+    case 0x00000005: //2018 H1Z1
+      zone = DataSchema.parse(schemaZone5, data, offset);
       break;
     default:
       log(`Unsupported zone version: ${version}\n`);
@@ -325,6 +384,7 @@ function readZone(data: Buffer, offset: number) {
   log(`Zone version: ${version}\n`);
   return zone.result;
 }
+
 
 function writeZone(zone: any) {
   // calculate new offsets
