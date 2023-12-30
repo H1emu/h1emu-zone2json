@@ -88,17 +88,11 @@ const objectSchema2016 = [
       { name: "unknownFloat1", type: "float" },
       { name: "unkData1", type: "uint64string" }, // below is unknownData[20]
       { name: "unkData1", type: "uint64string" }, // below is unknownData[20]
-      { name: "unkData1", type: "uint64string" }, // below is unknownData[20]
-      { name: "unkData1", type: "uint64string" }, // below is unknownData[20]
-      { name: "unkData1", type: "uint64string" }, // below is unknownData[20]
-      { name: "unkData1", type: "uint64string" }, // below is unknownData[20]
-      { name: "unkData1", type: "uint64string" }, // below is unknownData[20]
-      { name: "unkData1", type: "uint64string" }, // below is unknownData[20]
-      { name: "unkData1", type: "uint64string" }, // below is unknownData[20]
-      { name: "unknownByte12", type: "uint8" },
+      { name: "unknownFloat2", type: "float" }, // below is unknownData[20]
     ],
   },
 ];
+
 
 const objectSchema2018 = [
   { name: "actorDefinition", type: "nullstring" },
