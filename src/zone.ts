@@ -93,7 +93,6 @@ const objectSchema2016 = [
   },
 ];
 
-
 const objectSchema2018 = [
   { name: "actorDefinition", type: "nullstring" },
   { name: "renderDistance", type: "float" },
@@ -379,55 +378,59 @@ function readZone(data: Buffer, offset: number) {
   return zone.result;
 }
 
-
 function writeZone(zone: any) {
   // calculate new offsets
   let offset = 68,
     i;
 
-  zone.offsets.ecos = offset;
+  const offsets = zone.offsets ?? zone.header.offsets;
+
+  offsets.ecos = offset;
 
   offset += 4;
   for (i = 0; i < zone.ecos.length; i++) {
     offset += DataSchema.calculateDataLength(ecoSchema, zone.ecos[i]);
   }
-  zone.offsets.floras = offset;
+  offsets.floras = offset;
 
   offset += 4;
   for (i = 0; i < zone.floras.length; i++) {
     offset += DataSchema.calculateDataLength(floraSchema, zone.floras[i]);
   }
-  zone.offsets.invisibleWalls = offset;
+  offsets.invisibleWalls = offset;
 
   offset += 4;
   for (i = 0; i < zone.invisibleWalls.length; i++) {
-    offset += DataSchema.calculateDataLength(invisibleWallSchema, zone.invisibleWalls[i]);
+    offset += DataSchema.calculateDataLength(
+      invisibleWallSchema,
+      zone.invisibleWalls[i],
+    );
   }
-  zone.offsets.objects = offset;
+  offsets.objects = offset;
 
   offset += 4;
   for (i = 0; i < zone.objects.length; i++) {
     offset += DataSchema.calculateDataLength(objectSchema, zone.objects[i]);
   }
-  zone.offsets.lights = offset;
+  offsets.lights = offset;
 
   offset += 4;
   for (i = 0; i < zone.lights.length; i++) {
     offset += DataSchema.calculateDataLength(lightSchema, zone.lights[i]);
   }
-  zone.offsets.unknowns = offset;
+  offsets.unknowns = offset;
 
   let result: any;
   // write data
   const { version } = zone;
   switch (version) {
-    case 0x00000001://PS2
+    case 0x00000001: //PS2
       result = DataSchema.pack(schemaZone1, zone, undefined, undefined);
       break;
-    case 0x00000003://2015 H1Z1
+    case 0x00000003: //2015 H1Z1
       result = DataSchema.pack(schemaZone3, zone, undefined, undefined);
       break;
-    case 0x00000004://2016 H1Z1
+    case 0x00000004: //2016 H1Z1
       result = DataSchema.pack(schemaZone4, zone, undefined, undefined);
       break;
     default:
