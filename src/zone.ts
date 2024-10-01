@@ -422,7 +422,7 @@ function writeZone(zone: any) {
 
   let result: any;
   // write data
-  const { version } = zone;
+  const version = zone.version ?? zone.header.version;
   switch (version) {
     case 0x00000001: //PS2
       result = DataSchema.pack(schemaZone1, zone, undefined, undefined);
