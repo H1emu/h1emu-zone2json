@@ -379,50 +379,97 @@ function readZone(data: Buffer, offset: number) {
 }
 
 function writeZone(zone: any) {
-  // calculate new offsets
-  let offset = 68,
-    i;
+  const version = zone.version ?? zone.header.version;
 
-  const offsets = zone.offsets ?? zone.header.offsets;
+  if (version < 4) {
+    // calculate new offsets
+    let offset = 68,
+      i;
 
-  offsets.ecos = offset;
+    const offsets = zone.offsets ?? zone.header.offsets;
 
-  offset += 4;
-  for (i = 0; i < zone.ecos.length; i++) {
-    offset += DataSchema.calculateDataLength(ecoSchema, zone.ecos[i]);
+    offsets.ecos = offset;
+
+    offset += 4;
+    for (i = 0; i < zone.ecos.length; i++) {
+      offset += DataSchema.calculateDataLength(ecoSchema, zone.ecos[i]);
+    }
+    offsets.floras = offset;
+
+    offset += 4;
+    for (i = 0; i < zone.floras.length; i++) {
+      offset += DataSchema.calculateDataLength(floraSchema, zone.floras[i]);
+    }
+    offsets.invisibleWalls = offset;
+
+    offset += 4;
+    for (i = 0; i < (zone.invisibleWalls ?? zone.invis_walls).length; i++) {
+      offset += DataSchema.calculateDataLength(
+        invisibleWallSchema,
+        zone.invisibleWalls[i],
+      );
+    }
+    offsets.objects = offset;
+
+    offset += 4;
+    for (i = 0; i < zone.objects.length; i++) {
+      offset += DataSchema.calculateDataLength(objectSchema, zone.objects[i]);
+    }
+    offsets.lights = offset;
+
+    offset += 4;
+    for (i = 0; i < zone.lights.length; i++) {
+      offset += DataSchema.calculateDataLength(lightSchema, zone.lights[i]);
+    }
+    offsets.unknowns = offset;
+  } else {
+    // calculate new offsets
+    let offset = 68,
+      i;
+
+    const offsets = zone.offsets ?? zone.header.offsets;
+
+    offsets.ecos = offset;
+
+    offset += 4;
+    for (i = 0; i < zone.ecos.length; i++) {
+      offset += DataSchema.calculateDataLength(ecoSchema2016, zone.ecos[i]);
+    }
+    offsets.floras = offset;
+
+    offset += 4;
+    for (i = 0; i < zone.floras.length; i++) {
+      offset += DataSchema.calculateDataLength(floraSchema, zone.floras[i]);
+    }
+    offsets.invisibleWalls = offset;
+
+    offset += 4;
+    for (i = 0; i < (zone.invisibleWalls ?? zone.invis_walls).length; i++) {
+      offset += DataSchema.calculateDataLength(
+        invisibleWallSchema,
+        zone.invisibleWalls[i],
+      );
+    }
+    offsets.objects = offset;
+
+    offset += 4;
+    for (i = 0; i < zone.objects.length; i++) {
+      offset += DataSchema.calculateDataLength(
+        objectSchema2016,
+        zone.objects[i],
+      );
+    }
+    offsets.lights = offset;
+
+    offset += 4;
+    for (i = 0; i < zone.lights.length; i++) {
+      offset += DataSchema.calculateDataLength(lightSchema2016, zone.lights[i]);
+    }
+    offsets.unknowns = offset;
   }
-  offsets.floras = offset;
-
-  offset += 4;
-  for (i = 0; i < zone.floras.length; i++) {
-    offset += DataSchema.calculateDataLength(floraSchema, zone.floras[i]);
-  }
-  offsets.invisibleWalls = offset;
-
-  offset += 4;
-  for (i = 0; i < (zone.invisibleWalls ?? zone.invis_walls).length; i++) {
-    offset += DataSchema.calculateDataLength(
-      invisibleWallSchema,
-      zone.invisibleWalls[i],
-    );
-  }
-  offsets.objects = offset;
-
-  offset += 4;
-  for (i = 0; i < zone.objects.length; i++) {
-    offset += DataSchema.calculateDataLength(objectSchema, zone.objects[i]);
-  }
-  offsets.lights = offset;
-
-  offset += 4;
-  for (i = 0; i < zone.lights.length; i++) {
-    offset += DataSchema.calculateDataLength(lightSchema, zone.lights[i]);
-  }
-  offsets.unknowns = offset;
 
   let result: any;
   // write data
-  const version = zone.version ?? zone.header.version;
   switch (version) {
     case 0x00000001: //PS2
       result = DataSchema.pack(schemaZone1, zone, undefined, undefined);
