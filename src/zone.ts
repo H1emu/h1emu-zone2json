@@ -400,7 +400,7 @@ function writeZone(zone: any) {
   offsets.invisibleWalls = offset;
 
   offset += 4;
-  for (i = 0; i < zone.invisibleWalls.length; i++) {
+  for (i = 0; i < (zone.invisibleWalls ?? zone.invis_walls).length; i++) {
     offset += DataSchema.calculateDataLength(
       invisibleWallSchema,
       zone.invisibleWalls[i],
